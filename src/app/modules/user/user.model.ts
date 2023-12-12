@@ -3,22 +3,37 @@ import { TAddress, TFullname, TOrders, TUser } from './user.interface';
 
 const { Schema } = mongoose;
 
-const FullnameSchema = new Schema<TFullname>({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-});
+const FullnameSchema = new Schema<TFullname>(
+  {
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+  },
+  {
+    _id: false,
+  },
+);
 
-const AddressSchema = new Schema<TAddress>({
-  street: { type: String, required: true },
-  city: { type: String, required: true },
-  country: { type: String, required: true },
-});
+const AddressSchema = new Schema<TAddress>(
+  {
+    street: { type: String, required: true },
+    city: { type: String, required: true },
+    country: { type: String, required: true },
+  },
+  {
+    _id: false,
+  },
+);
 
-const OrdersSchema = new Schema<TOrders>({
-  productName: { type: String, required: true },
-  price: { type: String, required: true },
-  quantity: { type: Number, required: true },
-});
+const OrdersSchema = new Schema<TOrders>(
+  {
+    productName: { type: String, required: true },
+    price: { type: String, required: true },
+    quantity: { type: Number, required: true },
+  },
+  {
+    _id: false,
+  },
+);
 
 const UserSchema = new Schema<TUser>({
   userId: { type: Number, unique: true, required: true },
@@ -34,4 +49,4 @@ const UserSchema = new Schema<TUser>({
 });
 
 // model
-export const UserModel = model<TUser>('user', UserSchema);
+export const UserModel = model<TUser>('User', UserSchema);
