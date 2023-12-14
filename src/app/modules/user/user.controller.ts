@@ -110,7 +110,6 @@ const updateSingleUser = async (req: Request, res: Response) => {
         isActive,
         hobbies,
         address,
-        orders,
       } = result;
       return res.status(200).json({
         success: true,
@@ -124,7 +123,6 @@ const updateSingleUser = async (req: Request, res: Response) => {
           isActive,
           hobbies,
           address,
-          orders,
         },
       });
     } else {
