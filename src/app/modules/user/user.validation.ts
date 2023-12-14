@@ -51,8 +51,8 @@ const AddressValidationSchema = z.object({
 const OrdersValidationSchema = z.object({
   productName: z.string().min(1, { message: "Don't be like Evaly man. :D" }),
   price: z
-    .string()
-    .min(1, { message: 'Yeah this is business and you miss the price.' }),
+    .number()
+    .gte(0, { message: 'Yeah this is business and you miss the price.' }),
   quantity: z
     .number()
     .gt(0, { message: 'At least he bought 1 product, you remember!' }),

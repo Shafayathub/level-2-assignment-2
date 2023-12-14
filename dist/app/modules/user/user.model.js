@@ -55,7 +55,7 @@ const AddressSchema = new Schema({
 });
 const OrdersSchema = new Schema({
     productName: { type: String, required: true },
-    price: { type: String, required: true },
+    price: { type: Number, required: true },
     quantity: { type: Number, required: true },
 }, {
     _id: false,
@@ -70,13 +70,29 @@ const UserSchema = new Schema({
     isActive: { type: Boolean, required: true },
     hobbies: { type: [String] },
     address: { type: AddressSchema, required: true },
-    orders: { type: OrdersSchema },
+    orders: { type: [OrdersSchema] },
+    isDeleted: { type: Boolean, default: false },
 });
 // executes before saving data on DB
 UserSchema.pre('save', function () {
     return __awaiter(this, void 0, void 0, function* () {
         this.password = yield bcrypt_1.default.hash(this.password, Number(config_1.default.bcrypt_salt_rounds));
     });
+});
+// Query middleware
+UserSchema.pre('find', function (next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        this.find({ isDeleted: { $ne: true } });
+        next();
+    });
+});
+UserSchema.pre('findOne', function (next) {
+    this.find({ isDeleted: { $ne: true } });
+    next();
+});
+UserSchema.pre('aggregate', function (next) {
+    this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+    next();
 });
 // creating a static method
 UserSchema.statics.isUserExists = function (id) {

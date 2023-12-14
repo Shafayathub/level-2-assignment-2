@@ -38,8 +38,8 @@ const AddressValidationSchema = zod_1.z.object({
 const OrdersValidationSchema = zod_1.z.object({
     productName: zod_1.z.string().min(1, { message: "Don't be like Evaly man. :D" }),
     price: zod_1.z
-        .string()
-        .min(1, { message: 'Yeah this is business and you miss the price.' }),
+        .number()
+        .gte(0, { message: 'Yeah this is business and you miss the price.' }),
     quantity: zod_1.z
         .number()
         .gt(0, { message: 'At least he bought 1 product, you remember!' }),
@@ -55,5 +55,6 @@ exports.UserValidationSchema = zod_1.z.object({
     isActive: zod_1.z.boolean(),
     hobbies: zod_1.z.string().array().optional(),
     address: AddressValidationSchema,
-    orders: OrdersValidationSchema.optional(),
+    orders: OrdersValidationSchema.array().optional(),
+    isDeleted: zod_1.z.boolean(),
 });

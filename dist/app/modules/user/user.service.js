@@ -20,6 +20,7 @@ const getAllUsersFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.UserModel.find(query, {
         _id: 0,
         password: 0,
+        isDeleted: 0,
     });
     return result;
 });
@@ -27,10 +28,9 @@ const getSingleUserFromDB = (userId) => __awaiter(void 0, void 0, void 0, functi
     if ((yield user_model_1.UserModel.isUserExists(userId)) === null) {
         return null;
     }
-    const result = yield user_model_1.UserModel.findOne({ userId }, { _id: 0, password: 0 });
+    const result = yield user_model_1.UserModel.findOne({ userId }, { _id: 0, password: 0, isDeleted: 0 });
     return result;
 });
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const updateSingleUserFromDB = (userId, user) => __awaiter(void 0, void 0, void 0, function* () {
     if ((yield user_model_1.UserModel.isUserExists(userId)) === null) {
         return null;
@@ -38,9 +38,49 @@ const updateSingleUserFromDB = (userId, user) => __awaiter(void 0, void 0, void 
     const result = yield user_model_1.UserModel.findOneAndUpdate({ userId }, { $set: Object.assign({}, user) }, { new: true });
     return result;
 });
+const deleteSingelUserFromDB = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    if ((yield user_model_1.UserModel.isUserExists(userId)) === null) {
+        return null;
+    }
+    const result = yield user_model_1.UserModel.updateOne({ userId }, { isDeleted: true });
+    return result;
+});
+const updateOdersOfSingleUserFromDB = (userId, order) => __awaiter(void 0, void 0, void 0, function* () {
+    if ((yield user_model_1.UserModel.isUserExists(userId)) === null) {
+        return null;
+    }
+    const result = yield user_model_1.UserModel.findOneAndUpdate({ userId }, { $push: { orders: order } }, { new: true });
+    return result;
+});
+const getAllOrdersOfSingleUserFromDB = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    if ((yield user_model_1.UserModel.isUserExists(userId)) === null) {
+        return null;
+    }
+    const result = yield user_model_1.UserModel.findOne({ userId }, { orders: 1, _id: 0 });
+    return result;
+});
+const getTotalPriceFromDB = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    if ((yield user_model_1.UserModel.isUserExists(userId)) === null) {
+        return null;
+    }
+    const result = yield user_model_1.UserModel.aggregate([
+        { $match: { userId } },
+        {
+            $project: {
+                _id: 0,
+                orders: 1,
+            },
+        },
+    ]);
+    return result;
+});
 exports.UserServices = {
     createUserIntoDB,
     getAllUsersFromDB,
     getSingleUserFromDB,
     updateSingleUserFromDB,
+    deleteSingelUserFromDB,
+    updateOdersOfSingleUserFromDB,
+    getAllOrdersOfSingleUserFromDB,
+    getTotalPriceFromDB,
 };

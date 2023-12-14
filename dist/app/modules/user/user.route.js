@@ -15,4 +15,10 @@ router.get('/', user_controller_1.Usercontrollers.getAllUsers);
 router.get('/:userId', user_controller_1.Usercontrollers.getSingleUser);
 // update a user
 router.put('/:userId', user_controller_1.Usercontrollers.updateSingleUser);
+// delete a user
+router.delete('/:userId', user_controller_1.Usercontrollers.deleteSingelUser);
+// orders
+router.put('/:userId/orders', user_controller_1.Usercontrollers.updateAnOrder);
+router.get('/:userId/orders', user_controller_1.Usercontrollers.getAllOrdersOfSingleUser);
+router.get('/:userId/orders/total-price', user_controller_1.Usercontrollers.getTotalPrice);
 exports.UserRouters = router;

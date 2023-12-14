@@ -18,4 +18,11 @@ router.put('/:userId', Usercontrollers.updateSingleUser);
 // delete a user
 router.delete('/:userId', Usercontrollers.deleteSingelUser);
 
+// orders
+router.put('/:userId/orders', Usercontrollers.updateAnOrder);
+
+router.get('/:userId/orders', Usercontrollers.getAllOrdersOfSingleUser);
+
+router.get('/:userId/orders/total-price', Usercontrollers.getTotalPrice);
+
 export const UserRouters = router;

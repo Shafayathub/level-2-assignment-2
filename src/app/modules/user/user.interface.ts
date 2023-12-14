@@ -13,7 +13,7 @@ export type TAddress = {
 
 export type TOrders = {
   productName: string;
-  price: string;
+  price: number;
   quantity: number;
 };
 

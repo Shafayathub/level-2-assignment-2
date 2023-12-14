@@ -35,7 +35,7 @@ const AddressSchema = new Schema<TAddress>(
 const OrdersSchema = new Schema<TOrders>(
   {
     productName: { type: String, required: true },
-    price: { type: String, required: true },
+    price: { type: Number, required: true },
     quantity: { type: Number, required: true },
   },
   {
@@ -73,6 +73,11 @@ UserSchema.pre('find', async function (next) {
 
 UserSchema.pre('findOne', function (next) {
   this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+UserSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
   next();
 });
 
