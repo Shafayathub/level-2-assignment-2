@@ -1,4 +1,5 @@
 import mongoose, { model } from 'mongoose';
+import bcrypt from 'bcrypt';
 import {
   IUserModel,
   TAddress,
@@ -6,6 +7,7 @@ import {
   TOrders,
   TUser,
 } from './user.interface';
+import config from '../../config';
 
 const { Schema } = mongoose;
 
@@ -44,7 +46,7 @@ const OrdersSchema = new Schema<TOrders>(
 const UserSchema = new Schema<TUser, IUserModel>({
   userId: { type: Number, unique: true, required: true },
   username: { type: String, unique: true, required: true },
-  //   password: { type: String, required: true },
+  password: { type: String, required: true },
   fullname: { type: FullnameSchema },
   age: { type: Number, required: true },
   email: { type: String, unique: true, required: true },
@@ -52,6 +54,14 @@ const UserSchema = new Schema<TUser, IUserModel>({
   hobbies: { type: [String] },
   address: { type: AddressSchema, required: true },
   orders: { type: OrdersSchema },
+});
+
+// executes before saving data on DB
+UserSchema.pre('save', async function () {
+  this.password = await bcrypt.hash(
+    this.password,
+    Number(config.bcrypt_salt_rounds),
+  );
 });
 
 // creating a static method

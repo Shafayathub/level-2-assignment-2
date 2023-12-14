@@ -8,10 +8,30 @@ const createUser = async (req: Request, res: Response) => {
     const zodParsedUserData = UserValidationSchema.parse(user);
     const result = await UserServices.createUserIntoDB(zodParsedUserData);
 
+    const {
+      userId,
+      username,
+      fullname,
+      age,
+      email,
+      isActive,
+      hobbies,
+      address,
+    } = result;
+
     res.status(200).json({
       success: true,
       message: 'User created successfully!',
-      data: result,
+      data: {
+        userId,
+        username,
+        fullname,
+        age,
+        email,
+        isActive,
+        hobbies,
+        address,
+      },
     });
   } catch (err) {
     res.status(500).json({
