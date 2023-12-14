@@ -25,13 +25,22 @@ const getAllUsersFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 const getSingleUserFromDB = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     if ((yield user_model_1.UserModel.isUserExists(userId)) === null) {
-        return;
+        return null;
     }
     const result = yield user_model_1.UserModel.findOne({ userId }, { _id: 0, password: 0 });
+    return result;
+});
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const updateSingleUserFromDB = (userId, user) => __awaiter(void 0, void 0, void 0, function* () {
+    if ((yield user_model_1.UserModel.isUserExists(userId)) === null) {
+        return null;
+    }
+    const result = yield user_model_1.UserModel.findOneAndUpdate({ userId }, { $set: Object.assign({}, user) }, { new: true });
     return result;
 });
 exports.UserServices = {
     createUserIntoDB,
     getAllUsersFromDB,
     getSingleUserFromDB,
+    updateSingleUserFromDB,
 };

@@ -99,7 +99,7 @@ const updateSingleUser = async (req: Request, res: Response) => {
   const id = parseInt(userId);
   const { user } = req.body;
   try {
-    const result = await UserServices.updateSingleUser(id, user);
+    const result = await UserServices.updateSingleUserFromDB(id, user);
     if (result !== null) {
       const {
         userId,

@@ -24,7 +24,7 @@ const getSingleUserFromDB = async (userId: number) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const updateSingleUser = async (userId: number, user: object) => {
+const updateSingleUserFromDB = async (userId: number, user: object) => {
   if ((await UserModel.isUserExists(userId)) === null) {
     return null;
   }
@@ -41,5 +41,5 @@ export const UserServices = {
   createUserIntoDB,
   getAllUsersFromDB,
   getSingleUserFromDB,
-  updateSingleUser,
+  updateSingleUserFromDB,
 };

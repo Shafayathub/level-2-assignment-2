@@ -92,8 +92,55 @@ const getSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 });
+const updateSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = req.params;
+    const id = parseInt(userId);
+    const { user } = req.body;
+    try {
+        const result = yield user_service_1.UserServices.updateSingleUserFromDB(id, user);
+        if (result !== null) {
+            const { userId, username, fullname, age, email, isActive, hobbies, address, orders, } = result;
+            return res.status(200).json({
+                success: true,
+                message: 'User updated successfully',
+                data: {
+                    userId,
+                    username,
+                    fullname,
+                    age,
+                    email,
+                    isActive,
+                    hobbies,
+                    address,
+                    orders,
+                },
+            });
+        }
+        else {
+            return res.status(400).json({
+                success: false,
+                message: 'User not found',
+                error: {
+                    code: 404,
+                    description: 'User not found!',
+                },
+            });
+        }
+    }
+    catch (err) {
+        res.status(400).json({
+            success: false,
+            message: 'User not found',
+            error: {
+                code: 404,
+                description: 'User not found!',
+            },
+        });
+    }
+});
 exports.Usercontrollers = {
     createUser,
     getAllUsers,
     getSingleUser,
+    updateSingleUser,
 };

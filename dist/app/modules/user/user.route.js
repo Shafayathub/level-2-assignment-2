@@ -13,4 +13,6 @@ router.post('/', user_controller_1.Usercontrollers.createUser);
 router.get('/', user_controller_1.Usercontrollers.getAllUsers);
 // get single user
 router.get('/:userId', user_controller_1.Usercontrollers.getSingleUser);
+// update a user
+router.put('/:userId', user_controller_1.Usercontrollers.updateSingleUser);
 exports.UserRouters = router;
