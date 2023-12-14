@@ -89,8 +89,6 @@ To automatically fix formatting issues:
 npm run prettier:fix
 ```
 
-## Author
-
 [I took help from ChatGPT to write the README.md file. Cause it's boring writing a README.md manually when there is a tool to do this.]
 
 **Happy coding!**
