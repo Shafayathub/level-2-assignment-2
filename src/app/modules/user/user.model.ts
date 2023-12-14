@@ -53,7 +53,8 @@ const UserSchema = new Schema<TUser, IUserModel>({
   isActive: { type: Boolean, required: true },
   hobbies: { type: [String] },
   address: { type: AddressSchema, required: true },
-  orders: { type: OrdersSchema },
+  orders: { type: [OrdersSchema] },
+  isDeleted: { type: Boolean, default: false },
 });
 
 // executes before saving data on DB
@@ -62,6 +63,17 @@ UserSchema.pre('save', async function () {
     this.password,
     Number(config.bcrypt_salt_rounds),
   );
+});
+
+// Query middleware
+UserSchema.pre('find', async function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+UserSchema.pre('findOne', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
 });
 
 // creating a static method

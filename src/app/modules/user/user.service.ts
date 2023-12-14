@@ -11,6 +11,7 @@ const getAllUsersFromDB = async () => {
   const result = await UserModel.find(query, {
     _id: 0,
     password: 0,
+    isDeleted: 0,
   });
   return result;
 };
@@ -19,11 +20,13 @@ const getSingleUserFromDB = async (userId: number) => {
   if ((await UserModel.isUserExists(userId)) === null) {
     return null;
   }
-  const result = await UserModel.findOne({ userId }, { _id: 0, password: 0 });
+  const result = await UserModel.findOne(
+    { userId },
+    { _id: 0, password: 0, isDeleted: 0 },
+  );
   return result;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const updateSingleUserFromDB = async (userId: number, user: object) => {
   if ((await UserModel.isUserExists(userId)) === null) {
     return null;
@@ -37,9 +40,18 @@ const updateSingleUserFromDB = async (userId: number, user: object) => {
   return result;
 };
 
+const deleteSingelUserFromDB = async (userId: number) => {
+  if ((await UserModel.isUserExists(userId)) === null) {
+    return null;
+  }
+  const result = await UserModel.updateOne({ userId }, { isDeleted: true });
+  return result;
+};
+
 export const UserServices = {
   createUserIntoDB,
   getAllUsersFromDB,
   getSingleUserFromDB,
   updateSingleUserFromDB,
+  deleteSingelUserFromDB,
 };
