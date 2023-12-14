@@ -193,7 +193,7 @@ const updateAnOrder = async (req: Request, res: Response) => {
       return res.status(200).json({
         success: true,
         message: 'Order updated successfully',
-        data: result,
+        data: null,
       });
     } else {
       return res.status(400).json({
@@ -226,7 +226,7 @@ const getAllOrdersOfSingleUser = async (req: Request, res: Response) => {
     if (result !== null) {
       return res.status(200).json({
         success: true,
-        message: 'User fetched successfully',
+        message: 'Orders fetched successfully',
         data: result,
       });
     } else {
