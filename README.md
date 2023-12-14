@@ -89,18 +89,6 @@ To automatically fix formatting issues:
 npm run prettier:fix
 ```
 
-### Testing
-
-This project currently does not have specific tests. You can add tests and update the `test` script accordingly.
-
-## Contributing
-
-Feel free to contribute to this project by submitting issues or pull requests.
-
-## License
-
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
-
 ## Author
 
 [I took help from ChatGPT]
