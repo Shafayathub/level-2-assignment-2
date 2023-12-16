@@ -12,6 +12,7 @@ const getAllUsersFromDB = async () => {
     _id: 0,
     password: 0,
     isDeleted: 0,
+    orders: 0,
   });
   return result;
 };
@@ -22,7 +23,7 @@ const getSingleUserFromDB = async (userId: number) => {
   }
   const result = await UserModel.findOne(
     { userId },
-    { _id: 0, password: 0, isDeleted: 0 },
+    { _id: 0, password: 0, isDeleted: 0, orders: 0 },
   );
   return result;
 };
