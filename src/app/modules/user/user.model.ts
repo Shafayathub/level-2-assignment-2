@@ -47,7 +47,7 @@ const UserSchema = new Schema<TUser, IUserModel>({
   userId: { type: Number, unique: true, required: true },
   username: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  fullname: { type: FullnameSchema },
+  fullName: { type: FullnameSchema },
   age: { type: Number, required: true },
   email: { type: String, unique: true, required: true },
   isActive: { type: Boolean, required: true },

@@ -63,7 +63,7 @@ export const UserValidationSchema = z.object({
   userId: z.number().gte(0),
   username: z.string().trim().min(1, { message: 'User name is required.' }),
   password: z.string().min(6),
-  fullname: FullNameValidationSchema,
+  fullName: FullNameValidationSchema,
   age: z.number().gt(5),
   email: z.string().email({ message: 'Email is required' }),
   isActive: z.boolean(),

@@ -11,7 +11,7 @@ const createUser = async (req: Request, res: Response) => {
     const {
       userId,
       username,
-      fullname,
+      fullName,
       age,
       email,
       isActive,
@@ -25,7 +25,7 @@ const createUser = async (req: Request, res: Response) => {
       data: {
         userId,
         username,
-        fullname,
+        fullName,
         age,
         email,
         isActive,
@@ -104,7 +104,7 @@ const updateSingleUser = async (req: Request, res: Response) => {
       const {
         userId,
         username,
-        fullname,
+        fullName,
         age,
         email,
         isActive,
@@ -117,7 +117,7 @@ const updateSingleUser = async (req: Request, res: Response) => {
         data: {
           userId,
           username,
-          fullname,
+          fullName,
           age,
           email,
           isActive,
