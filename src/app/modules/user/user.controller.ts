@@ -8,21 +8,8 @@ const createUser = async (req: Request, res: Response) => {
     const zodParsedUserData = UserValidationSchema.parse(req.body);
     const result = await UserServices.createUserIntoDB(zodParsedUserData);
 
-    const {
-      userId,
-      username,
-      fullName,
-      age,
-      email,
-      isActive,
-      hobbies,
-      address,
-    } = result;
-
-    res.status(200).json({
-      success: true,
-      message: 'User created successfully!',
-      data: {
+    if (result !== null) {
+      const {
         userId,
         username,
         fullName,
@@ -31,8 +18,32 @@ const createUser = async (req: Request, res: Response) => {
         isActive,
         hobbies,
         address,
-      },
-    });
+      } = result;
+
+      res.status(200).json({
+        success: true,
+        message: 'User created successfully!',
+        data: {
+          userId,
+          username,
+          fullName,
+          age,
+          email,
+          isActive,
+          hobbies,
+          address,
+        },
+      });
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: 'UserName Exists',
+        error: {
+          code: 404,
+          description: 'Please put a new userName!',
+        },
+      });
+    }
   } catch (err) {
     res.status(500).json({
       success: false,

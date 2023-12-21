@@ -2,8 +2,11 @@ import { TUser } from './user.interface';
 import { UserModel } from './user.model';
 
 const createUserIntoDB = async (user: TUser) => {
-  const result = await UserModel.create(user);
-  return result;
+  if ((await UserModel.isUserNameExists(user?.username)) === null) {
+    const result = await UserModel.create(user);
+    return result;
+  }
+  return null;
 };
 
 const getAllUsersFromDB = async () => {
